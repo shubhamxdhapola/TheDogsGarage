@@ -18,4 +18,12 @@ html {
   scroll-behavior: smooth;
 }
 
+.slick-prev {
+  z-index: 1 !important;
+  left: 10px !important;
+}
 
+.slick-next {
+  z-index: 1 !important;
+  right: 10px !important;
+}

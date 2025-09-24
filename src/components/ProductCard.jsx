@@ -10,7 +10,7 @@ export default function ProductCard({ image, name, description, onBuy }) {
 
         <button
           onClick={onBuy}
-          className="px-y py-2 w-full bg-black text-white mt-4"
+          className="px-y py-2 w-full bg-black text-white mt-4 hover:bg-white hover:text-black duration-300 border-black border cursor-pointer"
         >
           Buy Now
         </button>

@@ -14,15 +14,14 @@ export default function BuyNowModal({
   defaultCategory = "dog",
   defaultBreed,
 }) {
-
   const initialFormData = {
-    name : '',
-    phone : '',
-    email : '',
-    address : '',
-    category : '',
-    breed : '',
-  }
+    name: "",
+    phone: "",
+    email: "",
+    address: "",
+    category: "dog",
+    breed: "",
+  };
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -33,7 +32,6 @@ export default function BuyNowModal({
   const [breed, setBreed] = useState(defaultBreed || breeds[0]);
   const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState(initialFormData);
-
 
   useEffect(() => {
     setBreed((b) => (breeds.includes(b) ? b : breeds[0]));
@@ -62,7 +60,7 @@ export default function BuyNowModal({
   return (
     <div className="fixed inset-0 z-50">
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
-      <div className="absolute inset-0 grid place-items-center p-4">
+      <div className="absolute inset-0 grid place-items-center p-4 overflow-y-scroll">
         <form
           onSubmit={submit}
           className="w-full max-w-lg border border-gray-200 bg-white p-5 sm:p-6 shadow-lg"
@@ -75,7 +73,7 @@ export default function BuyNowModal({
             <button
               type="button"
               onClick={onClose}
-              className="text-gray-500 hover:text-gray-700"
+              className="text-gray-500 hover:text-gray-700 cursor-pointer  duration-300"
             >
               ✕
             </button>
@@ -90,6 +88,7 @@ export default function BuyNowModal({
                 className="mt-1 w-full  border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
             </div>
+
             <div>
               <label className="text-sm text-gray-700">Phone</label>
               <input
@@ -100,7 +99,8 @@ export default function BuyNowModal({
                 className="mt-1 w-full  border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
             </div>
-            <div className="col-span-2">
+
+            <div className="sm:col-span-2">
               <label className="text-sm text-gray-700">Email</label>
               <input
                 type="email"
@@ -110,6 +110,7 @@ export default function BuyNowModal({
                 className="mt-1 w-full  border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
             </div>
+
             <div className="sm:col-span-2">
               <label className="text-sm text-gray-700">Address</label>
               <textarea
@@ -120,32 +121,37 @@ export default function BuyNowModal({
                 className="mt-1 w-full  border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
             </div>
-            <div>
-              <label className="text-sm text-gray-700">Pet Type</label>
-              <select
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                className="mt-1 w-full  border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              >
-                <option value="dog">Dog</option>
-                <option value="cat">Cat</option>
-              </select>
-            </div>
-            <div>
-              <label className="text-sm text-gray-700">Breed</label>
-              <select
-                value={breed}
-                onChange={(e) => setBreed(e.target.value)}
-                className="mt-1 w-full  border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              >
-                {breeds.map((b) => (
-                  <option key={b} value={b}>
-                    {b}
-                  </option>
-                ))}
-              </select>
+
+            <div className="flex gap-4 justify-center items-center sm:col-span-2">
+              <div className="flex-1">
+                <label className="text-sm text-gray-700">Pet Type</label>
+                <select
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  className="mt-1 w-full  border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                >
+                  <option value="dog">Dog</option>
+                  <option value="cat">Cat</option>
+                </select>
+              </div>
+
+              <div className="flex-1">
+                <label className="text-sm text-gray-700">Breed</label>
+                <select
+                  value={breed}
+                  onChange={(e) => setBreed(e.target.value)}
+                  className="mt-1 w-full  border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                >
+                  {breeds.map((b) => (
+                    <option key={b} value={b}>
+                      {b}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
+
           <div className="mt-8 flex items-center justify-end gap-4">
             <button
               type="button"
@@ -158,7 +164,11 @@ export default function BuyNowModal({
               className="px-4 py-2 bg-black text-white hover:bg-black/80 flex-1 border border-black"
               disabled={submitting}
             >
-              {submitting ? <Loader2 className="animate-spin mx-auto" /> : "Submit"}
+              {submitting ? (
+                <Loader2 className="animate-spin mx-auto" />
+              ) : (
+                "Submit"
+              )}
             </button>
           </div>
         </form>

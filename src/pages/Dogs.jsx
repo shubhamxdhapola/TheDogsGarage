@@ -1,26 +1,63 @@
-import { useState } from 'react'
-import ProductCard from '../components/ProductCard'
-import BuyNowModal from '../components/BuyNowModal'
+import { useEffect, useState } from "react";
+import ProductCard from "../components/ProductCard";
+import BuyNowModal from "../components/BuyNowModal";
 
 const dogs = [
-  { name: 'Labrador', description: 'Friendly and outgoing family dog.', image: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?q=80&w=1200&auto=format&fit=crop' },
-  { name: 'German Shepherd', description: 'Confident, courageous, and smart.', image: 'https://images.unsplash.com/photo-1517821099601-1aeb1bfee683?q=80&w=1200&auto=format&fit=crop' },
-  { name: 'Poodle', description: 'Active, proud, and very smart.', image: 'https://images.unsplash.com/photo-1596495578065-6e0763fa1178?q=80&w=1200&auto=format&fit=crop' },
-]
+  {
+    name: "Labrador Retriever",
+    description: "Friendly, outgoing, and great with families.",
+    image: "/images/labrodor.jpg",
+  },
+  {
+    name: "German Shepherd",
+    description: "Confident, courageous, and highly intelligent.",
+    image: "/images/germanshepherd.jpg",
+  },
+  {
+    name: "Golden Retriever",
+    description: "Loyal, gentle, and always eager to please.",
+    image: "/images/goldenret.jpg",
+  },
+  {
+    name: "Bulldog",
+    description: "Calm, courageous, and loving companion.",
+    image: "/images/bulldog.jpg",
+  },
+  {
+    name: "Poodle",
+    description: "Active, elegant, and exceptionally smart.",
+    image: "/images/poodle.jpg",
+  },
+  {
+    name: "Beagle",
+    description: "Curious, merry, and friendly pack dog.",
+    image: "/images/beagle.jpg",
+  },
+];
 
 export default function Dogs() {
-  const [modal, setModal] = useState({ open: false, breed: undefined })
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  const [modal, setModal] = useState({ open: false, breed: undefined });
   return (
     <div>
       <h1 className="text-2xl font-bold mb-6">Dogs</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {dogs.map((p) => (
-          <ProductCard key={p.name} {...p} onBuy={() => setModal({ open: true, breed: p.name })} />
+          <ProductCard
+            key={p.name}
+            {...p}
+            onBuy={() => setModal({ open: true, breed: p.name })}
+          />
         ))}
       </div>
-      <BuyNowModal open={modal.open} onClose={() => setModal({ open: false })} defaultCategory="dog" defaultBreed={modal.breed} />
+      <BuyNowModal
+        open={modal.open}
+        onClose={() => setModal({ open: false })}
+        defaultCategory="dog"
+        defaultBreed={modal.breed}
+      />
     </div>
-  )
+  );
 }
-
-
