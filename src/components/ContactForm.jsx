@@ -7,7 +7,7 @@ export default function ContactForm() {
 
   const initialFormData = {
     name: "",
-    email: "",
+    number: "",
     message: "",
   };
 
@@ -57,11 +57,11 @@ export default function ContactForm() {
           />
         </div>
         <div>
-          <label className="text-sm text-gray-800">Email</label>
+          <label className="text-sm text-gray-800">Contact No.</label>
           <input
-            type="email"
-            name="email"
-            value={formData.email}
+            type="number"
+            name="number"
+            value={formData.number}
             onChange={handleOnChange}
             required
             className="mt-1 w-full border border-gray-500 px-3 py-2 focus:outline-none focus:ring-1 focus:ring-black"
