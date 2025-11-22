@@ -5,9 +5,9 @@ import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
 const DATA = [
   {
     Icon: Mail,
-    text: "thedogsgarage@gmail.com",
+    text: "anuroopmishra@thedogsgarage.in",
     heading: "Email",
-    url: "mailto:thedogsgarage@gmail.com",
+    url: "mailto:anuroopmishra@thedogsgarage.in",
   },
   {
     Icon: Headset,
