@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#FAFAFA] text-stone-900 min-h-screen;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  /* Smooth scrolling for the entire page */
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Glassmorphism card */
+  .glass {
+    @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-glass;
+  }
+
+  .glass-dark {
+    @apply bg-tdg-brown/70 backdrop-blur-xl border border-white/10;
+  }
+
+  /* Shimmer gradient for shiny text */
+  .shimmer-gradient {
+    background: linear-gradient(
+      110deg,
+      currentColor 35%,
+      rgba(232, 106, 44, 0.8) 50%,
+      currentColor 65%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Gradient text utility */
+  .text-gradient-brand {
+    background: linear-gradient(135deg, #E86A2C, #F3B63F, #E86A2C);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Section container with max width */
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Spotlight card glow effect */
+  .spotlight-glow {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .spotlight-glow::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      600px circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
+      var(--spotlight-color, rgba(232, 106, 44, 0.06)),
+      transparent 40%
+    );
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .spotlight-glow:hover::before {
+    opacity: 1;
+  }
+}
+
+/* Custom subtle scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F0EAE1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C6D3BD;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #536B4F;
+}
+
+/* Organic blob backdrops */
+.blob-shape-green {
+  border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+}
+
+.blob-shape-sage {
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+}
+
+.badge-pulse {
+  animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+/* Print optimizations for commercial invoice */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 10mm 12mm;
+  }
+  header, aside, nav, .print-hidden {
+    display: none !important;
+  }
+  body, html {
+    background: #ffffff !important;
+    color: #09090b !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
