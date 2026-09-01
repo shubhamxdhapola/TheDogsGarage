@@ -33,5 +33,4 @@ otpSchema.methods.compareOtp = async function (enteredOtp) {
 
 // Check if model is already registered to avoid overwrite errors during reload
 export const Otp = mongoose.models.Otp || mongoose.model('Otp', otpSchema);
-export const OTP = Otp;
-export default Otp;
+
