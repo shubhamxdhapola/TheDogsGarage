@@ -13,6 +13,7 @@ import orderRoutes from './routes/order.routes.js';
 import adminRoutes from './routes/admin.routes.js';
 import uploadRoutes from './routes/upload.routes.js';
 import settingRoutes from './routes/setting.routes.js';
+import cmsRoutes from './routes/cms.routes.js';
 
 const app = express();
 
@@ -51,6 +52,7 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/settings', settingRoutes);
+app.use('/api/cms', cmsRoutes);
 
 // 404 Handler
 app.use((req, res) => {

@@ -64,4 +64,5 @@ export const API_PATHS = {
     DELETE: '/api/upload/media',
   },
   SETTINGS: '/api/settings',
+  CMS: '/api/cms',
 };

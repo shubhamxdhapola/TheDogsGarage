@@ -23,12 +23,15 @@ import { TextLoop } from '../../components/reactbits/TextLoop.jsx';
 import { ClickSpark } from '../../components/reactbits/ClickSpark.jsx';
 import { SpotlightCard } from '../../components/reactbits/SpotlightCard.jsx';
 import { ScrollReveal } from '../../components/reactbits/ScrollReveal.jsx';
+import { defaultCmsData } from '../../utils/defaultCmsData.js';
 
 export const PetsPage = () => {
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const { pets, pagination, loading } = useSelector((state) => state.pets);
+  const { cms } = useSelector((state) => state.cms);
+  const cmsPets = cms?.petsPage || defaultCmsData.petsPage;
 
   // Local filter states initialized from URL params
   const [search, setSearch] = useState(searchParams.get('search') || '');
@@ -55,13 +58,10 @@ export const PetsPage = () => {
   };
 
   // Top breeds for quick capsule filters
-  const breedsList = [
-    'All',
-    'Siberian Husky',
-    'German Shepherd',
-    'Labrador Retriever',
-    'Golden Retriever',
-  ];
+  const breedsList =
+    cmsPets.breedsList && cmsPets.breedsList.length > 0
+      ? cmsPets.breedsList
+      : defaultCmsData.petsPage.breedsList;
 
   const genderOptions = ['All', 'Male', 'Female'];
   const sizeOptions = ['All', 'Small', 'Medium', 'Large'];
@@ -119,22 +119,27 @@ export const PetsPage = () => {
         <div className="text-center max-w-2xl mx-auto space-y-3 py-2">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-stone-200 shadow-2xs text-xs font-black tracking-widest text-amber-700 uppercase font-display mx-auto">
             <Sparkles className="w-3.5 h-3.5 text-amber-600 animate-pulse" />
-            <span>LIVE STOCK • </span>
+            <span>{cmsPets.eyebrow || 'LIVE STOCK • '}</span>
             <TextLoop
-              items={['KCI CERTIFIED', '42-PT VET CHECK', 'ETHICALLY RAISED', 'LIFETIME CARE']}
+              items={
+                cmsPets.eyebrowLoops && cmsPets.eyebrowLoops.length > 0
+                  ? cmsPets.eyebrowLoops
+                  : defaultCmsData.petsPage.eyebrowLoops
+              }
               interval={2800}
               className="text-stone-800"
             />
           </div>
 
           <BlurText
-            text="Find Your Perfect Companion"
+            text={cmsPets.title || 'Find Your Perfect Companion'}
             delay={50}
             className="text-3xl sm:text-4xl lg:text-5xl font-black text-stone-900 font-display tracking-tight justify-center"
           />
 
           <p className="text-xs sm:text-sm text-stone-500 font-medium leading-relaxed max-w-xl mx-auto">
-            Ethically raised, vet-certified puppies from champion bloodlines with complete medical records, microchips, and direct WhatsApp consultations.
+            {cmsPets.description ||
+              'Ethically raised, vet-certified puppies from champion bloodlines with complete medical records, microchips, and direct WhatsApp consultations.'}
           </p>
         </div>
 

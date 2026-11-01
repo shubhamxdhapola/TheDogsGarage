@@ -20,6 +20,7 @@ import { SpotlightCard } from '../../components/reactbits/SpotlightCard.jsx';
 import { GlareCard } from '../../components/reactbits/GlareCard.jsx';
 import { ClickSpark } from '../../components/reactbits/ClickSpark.jsx';
 import { ShinyText } from '../../components/reactbits/ShinyText.jsx';
+import { defaultCmsData } from '../../utils/defaultCmsData.js';
 
 const defaultProductImages = [
   '/images/product-shampoo.jpg',
@@ -32,6 +33,8 @@ export const AccessoriesPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { products, loading } = useSelector((state) => state.products);
+  const { cms } = useSelector((state) => state.cms);
+  const data = cms?.accessoriesPage || defaultCmsData.accessoriesPage;
   const [isAdding, setIsAdding] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [activeImgIndex, setActiveImgIndex] = useState(0);
@@ -92,16 +95,17 @@ export const AccessoriesPage = () => {
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-stone-200 shadow-2xs text-xs font-black tracking-widest text-amber-700 uppercase font-display mx-auto">
             <Sparkles className="w-3.5 h-3.5 text-amber-600 animate-pulse" />
-            <span>THE GARAGE SHOP • SIGNATURE COLLECTION</span>
+            <span>{data.eyebrow || 'THE GARAGE SHOP • SIGNATURE COLLECTION'}</span>
           </div>
 
           <BlurText
-            text="The Garage Shop"
+            text={data.title || 'The Garage Shop'}
             delay={60}
             className="text-4xl sm:text-5xl font-black text-stone-900 font-display tracking-tight justify-center"
           />
           <p className="text-sm text-stone-500 font-medium leading-relaxed">
-            Curated canine essentials developed to veterinary specifications. Currently showcasing our #1 rated organic grooming formula.
+            {data.description ||
+              'Curated canine essentials developed to veterinary specifications. Currently showcasing our #1 rated organic grooming formula.'}
           </p>
         </div>
 

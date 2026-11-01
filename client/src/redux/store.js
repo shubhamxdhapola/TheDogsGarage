@@ -6,6 +6,7 @@ import productReducer from './slices/product.slice.js';
 import orderReducer from './slices/order.slice.js';
 import adminReducer from './slices/admin.slice.js';
 import settingReducer from './slices/setting.slice.js';
+import cmsReducer from './slices/cms.slice.js';
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     orders: orderReducer,
     admin: adminReducer,
     settings: settingReducer,
+    cms: cmsReducer,
   },
 });
 

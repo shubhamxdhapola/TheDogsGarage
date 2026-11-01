@@ -8,9 +8,18 @@ import { Magnet } from '../reactbits/Magnet.jsx';
 
 export const Footer = () => {
   const { settings } = useSelector((state) => state.settings);
+  const { cms } = useSelector((state) => state.cms);
 
   const storeName = settings?.storeName || BUSINESS_CONFIG.NAME;
-  const tagline = settings?.tagline || BUSINESS_CONFIG.TAGLINE;
+  const tagline =
+    cms?.global?.footerTagline ||
+    settings?.tagline ||
+    BUSINESS_CONFIG.TAGLINE;
+  const verifiedBadge =
+    cms?.global?.footerVerifiedBadge || 'Verified KCI Registered Kennel';
+  const copyright =
+    cms?.global?.footerCopyright ||
+    `© ${new Date().getFullYear()} ${storeName}. All rights reserved.`;
   const address = settings?.address || BUSINESS_CONFIG.LOCATION;
   const phone = settings?.contactPhone || BUSINESS_CONFIG.PHONE;
   const email = settings?.contactEmail || BUSINESS_CONFIG.EMAIL;
@@ -133,7 +142,7 @@ export const Footer = () => {
               </p>
               <div className="pt-2 flex items-center gap-2 text-[11px] text-emerald-700 font-bold">
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                <span>Verified KCI Registered Kennel</span>
+                <span>{verifiedBadge}</span>
               </div>
             </div>
           </div>
@@ -141,7 +150,7 @@ export const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-400 font-medium">
-          <p>© {new Date().getFullYear()} {storeName}. All rights reserved.</p>
+          <p>{copyright}</p>
           <div className="flex items-center gap-6">
             <Link to="/account/orders" className="hover:text-stone-700 transition-colors">
               Track Order

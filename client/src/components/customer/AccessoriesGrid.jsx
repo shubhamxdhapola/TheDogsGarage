@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   ShoppingBag,
   Sparkles,
@@ -18,6 +18,7 @@ import { ShinyText } from '../reactbits/ShinyText.jsx';
 import { ClickSpark } from '../reactbits/ClickSpark.jsx';
 import { SpotlightCard } from '../reactbits/SpotlightCard.jsx';
 import { GlareCard } from '../reactbits/GlareCard.jsx';
+import { defaultCmsData } from '../../utils/defaultCmsData.js';
 
 const defaultProductImages = [
   '/images/product-shampoo.jpg',
@@ -29,6 +30,8 @@ const defaultProductImages = [
 export const AccessoriesGrid = ({ products = [] }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { cms } = useSelector((state) => state.cms);
+  const data = cms?.home?.signaturePick || defaultCmsData.home.signaturePick;
   const [isAdding, setIsAdding] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [activeImgIndex, setActiveImgIndex] = useState(0);
@@ -94,23 +97,24 @@ export const AccessoriesGrid = ({ products = [] }) => {
           <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-stone-200 shadow-2xs text-xs font-black tracking-widest text-amber-700 uppercase font-display">
               <Sparkles className="w-3.5 h-3.5 text-amber-600 animate-pulse" />
-              <span>OUR SIGNATURE PICK</span>
+              <span>{data.eyebrow || 'OUR SIGNATURE PICK'}</span>
             </div>
             <BlurText
-              text="The One They Love."
+              text={data.title || 'The One They Love.'}
               delay={60}
               className="text-3xl sm:text-4xl font-black text-stone-900 font-display tracking-tight"
             />
             <p className="text-xs sm:text-sm text-stone-500 font-medium max-w-xl leading-relaxed">
-              100% natural, dermatologically tested and vet-approved organic coat care crafted for sensitive dog skin.
+              {data.description ||
+                '100% natural, dermatologically tested and vet-approved organic coat care crafted for sensitive dog skin.'}
             </p>
           </div>
 
           <Link
-            to="/accessories"
+            to={data.ctaLink || '/accessories'}
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white border border-stone-200 hover:border-amber-600 text-stone-800 hover:text-amber-700 font-bold text-xs shadow-xs transition-all hover:scale-105 shrink-0 self-start sm:self-auto"
           >
-            <span>Product Details</span>
+            <span>{data.ctaText || 'Product Details'}</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
@@ -212,30 +216,14 @@ export const AccessoriesGrid = ({ products = [] }) => {
 
               {/* Key Formula Benefits */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-stone-700">
-                <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
-                    <Check className="w-2.5 h-2.5 text-emerald-600" />
+                {(data.features || defaultCmsData.home.signaturePick.features).map((feat, fIdx) => (
+                  <div key={fIdx} className="flex items-center gap-2">
+                    <div className="w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
+                      <Check className="w-2.5 h-2.5 text-emerald-600" />
+                    </div>
+                    <span>{feat}</span>
                   </div>
-                  <span>Relieves dry, itchy & sensitive skin</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
-                    <Check className="w-2.5 h-2.5 text-emerald-600" />
-                  </div>
-                  <span>Silk proteins for soft & lustrous coat</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
-                    <Check className="w-2.5 h-2.5 text-emerald-600" />
-                  </div>
-                  <span>100% Tearless & pH balanced</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
-                    <Check className="w-2.5 h-2.5 text-emerald-600" />
-                  </div>
-                  <span>Paraben-free & Vet recommended</span>
-                </div>
+                ))}
               </div>
 
               {/* Perfectly Aligned Button Matrix */}

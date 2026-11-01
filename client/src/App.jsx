@@ -7,6 +7,7 @@ import { router } from './routes/index.jsx';
 import { getMe } from './redux/slices/auth.slice.js';
 import { fetchServerCart } from './redux/slices/cart.slice.js';
 import { fetchStoreSettings } from './redux/slices/setting.slice.js';
+import { fetchCmsContent } from './redux/slices/cms.slice.js';
 import { AuthModal } from './components/auth/AuthModal.jsx';
 
 export function App() {
@@ -15,6 +16,7 @@ export function App() {
 
   useEffect(() => {
     dispatch(fetchStoreSettings());
+    dispatch(fetchCmsContent());
     if (localStorage.getItem('tdg_auth_token')) {
       dispatch(getMe());
       dispatch(fetchServerCart());

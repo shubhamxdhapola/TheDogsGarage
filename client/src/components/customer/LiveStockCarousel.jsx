@@ -7,10 +7,13 @@ import { BlurText } from '../reactbits/BlurText.jsx';
 import { GlareCard } from '../reactbits/GlareCard.jsx';
 import { ClickSpark } from '../reactbits/ClickSpark.jsx';
 import { getBreedImages } from '../../utils/breedImages.js';
+import { defaultCmsData } from '../../utils/defaultCmsData.js';
 
 export const LiveStockCarousel = () => {
   const dispatch = useDispatch();
   const { pets } = useSelector((state) => state.pets);
+  const { cms } = useSelector((state) => state.cms);
+  const cmsLiveStock = cms?.home?.liveStock || defaultCmsData.home.liveStock;
 
   useEffect(() => {
     dispatch(fetchPets({ limit: 4 }));
@@ -89,23 +92,24 @@ export const LiveStockCarousel = () => {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div className="space-y-1.5">
             <span className="text-xs font-black text-amber-700 uppercase tracking-widest font-display block">
-              ETHICAL COMPANIONSHIP
+              {cmsLiveStock.eyebrow || 'ETHICAL COMPANIONSHIP'}
             </span>
             <BlurText
-              text="Meet the Pets"
+              text={cmsLiveStock.title || 'Meet the Pets'}
               delay={60}
               className="text-3xl sm:text-4xl font-black text-stone-900 font-display tracking-tight"
             />
             <p className="text-xs sm:text-sm text-stone-500 font-medium max-w-xl">
-              Each pup is raised in a clean, nurturing habitat with 42-point veterinary health checks and KCI certified lineage.
+              {cmsLiveStock.description ||
+                'Each pup is raised in a clean, nurturing habitat with 42-point veterinary health checks and KCI certified lineage.'}
             </p>
           </div>
 
           <Link
-            to="/pets"
+            to={cmsLiveStock.ctaLink || '/pets'}
             className="text-xs font-bold text-stone-900 hover:text-amber-600 flex items-center gap-1.5 transition-colors self-start sm:self-auto group"
           >
-            <span>View All Available Pets</span>
+            <span>{cmsLiveStock.ctaText || 'View All Available Pets'}</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>

@@ -12,6 +12,7 @@ import {
   Package,
   LogOut,
   LayoutDashboard,
+  Sparkles,
 } from 'lucide-react';
 import { logout, openAuthModal } from '../../redux/slices/auth.slice.js';
 import { openCartDrawer } from '../../redux/slices/cart.slice.js';
@@ -29,6 +30,7 @@ export const Navbar = () => {
 
   const { user, isAuthenticated } = useSelector((state) => state.auth);
   const { totalItemsCount } = useSelector((state) => state.cart);
+  const { cms } = useSelector((state) => state.cms);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -49,6 +51,12 @@ export const Navbar = () => {
 
   return (
     <>
+      {/* {cms?.global?.announcementActive !== false && cms?.global?.announcement && (
+        <div className="bg-stone-900 text-stone-200 py-2 px-4 text-center text-xs font-bold tracking-wide border-b border-stone-800 flex items-center justify-center gap-2">
+          <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse shrink-0" />
+          <span className="truncate">{cms.global.announcement}</span>
+        </div>
+      )} */}
       <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-stone-200/70 shadow-xs transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">

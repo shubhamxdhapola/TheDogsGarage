@@ -36,6 +36,7 @@ import { AddEditPetPage } from '../pages/admin/AddEditPetPage.jsx';
 import { CustomersPage as AdminCustomersPage } from '../pages/admin/CustomersPage.jsx';
 import { AnalyticsPage as AdminAnalyticsPage } from '../pages/admin/AnalyticsPage.jsx';
 import { SettingsPage as AdminSettingsPage } from '../pages/admin/SettingsPage.jsx';
+import { CmsPage as AdminCmsPage } from '../pages/admin/CmsPage.jsx';
 
 // Route Guards
 import { ProtectedRoute, GuestRoute } from '../components/ProtectedRoute.jsx';
@@ -136,6 +137,7 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <Navigate to="/admin/dashboard" replace /> },
       { path: 'dashboard', element: <AdminDashboardPage /> },
+      { path: 'cms', element: <AdminCmsPage /> },
       { path: 'orders', element: <AdminOrdersPage /> },
       { path: 'orders/:id', element: <AdminOrderDetailPage /> },
       { path: 'pets', element: <AdminPetsPage /> },

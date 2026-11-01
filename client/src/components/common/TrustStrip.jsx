@@ -1,60 +1,43 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { HeartHandshake, ShieldCheck, Eye, Headphones } from 'lucide-react';
 import { SpotlightCard } from '../reactbits/SpotlightCard.jsx';
 import { BlurText } from '../reactbits/BlurText.jsx';
 import { ScrollReveal } from '../reactbits/ScrollReveal.jsx';
+import { defaultCmsData } from '../../utils/defaultCmsData.js';
+
+const iconMap = [HeartHandshake, ShieldCheck, Eye, Headphones];
 
 export const TrustStrip = () => {
-  const trustCards = [
-    {
-      icon: HeartHandshake,
-      title: 'Responsible',
-      description: 'Thoughtful, compassionate approach to pet companionship with spacious socialization and zero puppy mill sourcing.',
-      badge: 'Ethical Standard',
-    },
-    {
-      icon: ShieldCheck,
-      title: 'Trusted',
-      description: 'Carefully selected organic coat care, vet-approved nutrition, and high-durability essentials.',
-      badge: 'Clinically Vetted',
-    },
-    {
-      icon: Eye,
-      title: 'Transparent',
-      description: 'Clear, uncompromised pedigree documentation, 42-point medical records, and transparent pricing.',
-      badge: '100% Verified',
-    },
-    {
-      icon: Headphones,
-      title: 'Personal',
-      description: 'Real guidance and lifetime veterinary advice for pet parents whenever you have questions.',
-      badge: '24/7 Support',
-    },
-  ];
+  const { cms } = useSelector((state) => state.cms);
+  const data = cms?.home?.trustStrip || defaultCmsData.home.trustStrip;
+
+  const trustCards =
+    data.cards && data.cards.length > 0 ? data.cards : defaultCmsData.home.trustStrip.cards;
 
   return (
     <section className="py-16 sm:py-24 bg-[#FAFAFA]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <span className="text-xs font-black text-amber-700 uppercase tracking-widest font-display block">
-            WHY THE DOGS GARAGE
+            {data.eyebrow || 'WHY THE DOGS GARAGE'}
           </span>
           <BlurText
-            text="Built Around Better Pet Care."
+            text={data.title || 'Built Around Better Pet Care.'}
             delay={60}
             className="text-3xl sm:text-4xl font-black text-stone-900 font-display tracking-tight justify-center"
           />
           <p className="text-sm text-stone-500 font-medium">
-            We hold ourselves to uncompromising standards of health, transparency, and care for every puppy and product.
+            {data.description ||
+              'We hold ourselves to uncompromising standards of health, transparency, and care for every puppy and product.'}
           </p>
         </div>
 
         {/* 4 Trust Cards Grid with Staggered ScrollReveal & ReactBits SpotlightCard */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {trustCards.map((card, idx) => {
-            const Icon = card.icon;
+            const Icon = iconMap[idx % iconMap.length];
             return (
               <ScrollReveal
                 key={idx}
@@ -89,7 +72,6 @@ export const TrustStrip = () => {
             );
           })}
         </div>
-
       </div>
     </section>
   );

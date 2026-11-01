@@ -239,8 +239,8 @@ export const DashboardPage = () => {
               <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
                 <defs>
                   <linearGradient id="cleanRevenueGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#10b981" stopOpacity={0.28} />
-                    <stop offset="95%" stopColor="#10b981" stopOpacity={0.0} />
+                    <stop offset="5%" stopColor="#F59E0B" stopOpacity={0.35} />
+                    <stop offset="95%" stopColor="#F59E0B" stopOpacity={0.0} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
@@ -260,11 +260,11 @@ export const DashboardPage = () => {
                 <Area
                   type="monotone"
                   dataKey="revenue"
-                  stroke="#10b981"
-                  strokeWidth={3}
+                  stroke="#F59E0B"
+                  strokeWidth={3.5}
                   fillOpacity={1}
                   fill="url(#cleanRevenueGradient)"
-                  activeDot={{ r: 6, fill: '#059669', stroke: '#fff', strokeWidth: 2 }}
+                  activeDot={{ r: 6, fill: '#D97706', stroke: '#fff', strokeWidth: 2 }}
                 />
               </AreaChart>
             </ResponsiveContainer>

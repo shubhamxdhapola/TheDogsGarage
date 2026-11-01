@@ -21,9 +21,12 @@ import { ShinyText } from '../../components/reactbits/ShinyText.jsx';
 import { ClickSpark } from '../../components/reactbits/ClickSpark.jsx';
 import { GlareCard } from '../../components/reactbits/GlareCard.jsx';
 import { TiltedCard } from '../../components/reactbits/TiltedCard.jsx';
+import { defaultCmsData } from '../../utils/defaultCmsData.js';
 
 export const ContactPage = () => {
   const { settings } = useSelector((state) => state.settings);
+  const { cms } = useSelector((state) => state.cms);
+  const cmsContact = cms?.contact || defaultCmsData.contact;
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({
@@ -106,16 +109,19 @@ export const ContactPage = () => {
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-stone-200 shadow-2xs text-xs font-black tracking-widest text-amber-700 uppercase font-display mx-auto">
             <Sparkles className="w-3.5 h-3.5 text-amber-600 animate-pulse" />
-            <span>24/7 DEDICATED PET CONCIERGE</span>
+            <span>{cmsContact.eyebrow || '24/7 DEDICATED PET CONCIERGE'}</span>
           </div>
 
           <BlurText
-            text="We're Always Here For You"
+            text={cmsContact.title || "We're Always Here For You"}
             delay={60}
             className="text-3xl sm:text-4xl lg:text-5xl font-black text-stone-900 font-display tracking-tight justify-center"
           />
           <BlurText
-            text="Have questions about puppy availability, vaccination, nursery visits, or coat care products? Connect with our dedicated advisory team."
+            text={
+              cmsContact.description ||
+              'Have questions about puppy availability, vaccination, nursery visits, or coat care products? Connect with our dedicated advisory team.'
+            }
             delay={20}
             className="text-xs sm:text-sm text-stone-500 font-medium max-w-xl mx-auto leading-relaxed justify-center text-center"
           />
@@ -349,11 +355,11 @@ export const ContactPage = () => {
                         onChange={(e) => setForm({ ...form, subject: e.target.value })}
                         className="w-full px-4 py-3 rounded-xl bg-stone-50 border border-stone-200 focus:bg-white focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20 outline-none font-bold text-stone-800 text-sm transition-all cursor-pointer"
                       >
-                        <option value="Live Stock Puppy Adoption">Live Stock Puppy Adoption</option>
-                        <option value="Puppy Nursery Visit & Video Call">Puppy Nursery Visit & Video Call</option>
-                        <option value="Product Order & Shipping">Product Order & Shipping</option>
-                        <option value="Vaccination & Health Certification">Vaccination & Health Certification</option>
-                        <option value="General Question">General Question</option>
+                        {(cmsContact.formCategories || defaultCmsData.contact.formCategories).map((cat, idx) => (
+                          <option key={idx} value={cat}>
+                            {cat}
+                          </option>
+                        ))}
                       </select>
                     </div>
                   </div>
@@ -406,7 +412,7 @@ export const ContactPage = () => {
                 {/* Background Ambient Glow & Photography */}
                 <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-900/90 to-transparent z-10 pointer-events-none" />
                 <img
-                  src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=800&q=80"
+                  src={cmsContact.conciergeImage || "https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=800&q=80"}
                   alt="Nursery Companions"
                   className="absolute inset-0 w-full h-full object-cover opacity-35 group-hover:scale-110 transition-transform duration-700"
                 />
@@ -415,35 +421,34 @@ export const ContactPage = () => {
                 <div className="relative z-20 flex items-center justify-between">
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-[11px] font-bold backdrop-blur-xs">
                     <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                    <span>NURSERY CONCIERGE</span>
+                    <span>{cmsContact.conciergeBadge || 'NURSERY CONCIERGE'}</span>
                   </span>
 
                   <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-[10px] font-bold backdrop-blur-xs">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                    <span>Live Advisory Active</span>
+                    <span>{cmsContact.conciergeStatus || 'Live Advisory Active'}</span>
                   </span>
                 </div>
 
                 {/* Main Content */}
                 <div className="relative z-20 space-y-3 pt-8">
                   <h3 className="text-2xl sm:text-3xl font-black font-display tracking-tight text-white leading-tight">
-                    Visit Our Nursery & Meet The Companions
+                    {cmsContact.conciergeTitle || 'Visit Our Nursery & Meet The Companions'}
                   </h3>
                   <p className="text-xs sm:text-sm text-stone-300 font-medium leading-relaxed">
-                    Experience our climate-controlled nursery, verified lineage charts, and video-call companionship sessions before adopting.
+                    {cmsContact.conciergeDescription ||
+                      'Experience our climate-controlled nursery, verified lineage charts, and video-call companionship sessions before adopting.'}
                   </p>
                 </div>
 
                 {/* 3 Quick Highlight Pills */}
                 <div className="relative z-20 grid grid-cols-2 gap-2.5 text-xs font-bold pt-2">
-                  <div className="p-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/10 flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-                    <span className="text-stone-200 text-[11px]">42-Pt Vet Check</span>
-                  </div>
-                  <div className="p-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/10 flex items-center gap-2">
-                    <Video className="w-4 h-4 text-amber-400 shrink-0" />
-                    <span className="text-stone-200 text-[11px]">Live Video Tour</span>
-                  </div>
+                  {(cmsContact.conciergePills || ['42-Pt Vet Check', 'Live Video Tour']).map((pill, pIdx) => (
+                    <div key={pIdx} className="p-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/10 flex items-center gap-2">
+                      <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                      <span className="text-stone-200 text-[11px]">{pill}</span>
+                    </div>
+                  ))}
                 </div>
 
                 {/* Direct Action */}
@@ -456,7 +461,7 @@ export const ContactPage = () => {
                       className="w-full py-3.5 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-card flex items-center justify-center gap-2 transition-all hover:scale-102"
                     >
                       <MessageSquare className="w-4 h-4 fill-current" />
-                      <span>Chat on WhatsApp Instantly</span>
+                      <span>{cmsContact.conciergeCtaText || 'Chat on WhatsApp Instantly'}</span>
                     </a>
                   </ClickSpark>
                 </div>
